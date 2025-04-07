@@ -42,4 +42,12 @@ export class PostsService {
     }
     return result;
   }
+
+  async remove(id: string): Promise<Post> {
+    const result = await this.PostModel.findByIdAndDelete(id).exec();
+    if (!result) {
+      throw new NotFoundException(`Post not found ${id}`);
+    }
+    return result;
+  }
 }
