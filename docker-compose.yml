@@ -18,12 +18,11 @@ services:
     container_name: nestjs-api
     restart: always
     ports:
-      - "5001:5001"
+      - "5002:5002"
     depends_on:
       - mongodb
-    environment:
-      MONGO_URI: mongodb://root:example@mongodb:27017/social_media?authSource=admin
-      PORT: 5001
+    env_file:
+      - .env.prod  # โหลดค่า env จากไฟล์นี้
 
 volumes:
   mongo-data:
