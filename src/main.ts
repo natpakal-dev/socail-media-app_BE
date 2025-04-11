@@ -16,9 +16,7 @@ async function bootstrap() {
       forbidNonWhitelisted: true, // ถ้ามีการส่งฟิลด์ที่ไม่ได้อยู่ใน DTO จะตอบกลับ error
     }),
   );
-  console.log('MONGO_URI =', configService.get('MONGO_URI'));
-  console.log('process.env.MONGO_URI =', process.env.MONGO_URI!);
 
-  await app.listen(configService.get('PORT') ?? 5001);
+  await app.listen(configService.get('PORT') ?? 5002);
 }
 bootstrap();

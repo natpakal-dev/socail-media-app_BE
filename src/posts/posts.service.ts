@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Post } from './schema/create-post.schema';
+import { Post } from './schema/post.schema';
 // import { v4 as uuidv4 } from 'uuid';
 import { createPostRequestDto } from './dto/create-post-request.dto';
 import { updatePostRequestDto } from './dto/update-post-request.dto';
@@ -15,7 +15,8 @@ export class PostsService {
 
   async create(body: createPostRequestDto): Promise<Post> {
     const createPost = new this.PostModel(body);
-    return createPost.save();
+    const result = await createPost.save();
+    return result;
   }
 
   async update(
@@ -32,7 +33,7 @@ export class PostsService {
   }
 
   async fineAll(): Promise<Post[]> {
-    return this.PostModel.find().exec();
+    return this.PostModel.find().sort({ createdAt: -1 }).exec();
   }
 
   async fineOne(id: string): Promise<Post> {

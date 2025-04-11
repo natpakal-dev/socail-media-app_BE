@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-@Schema()
+
+@Schema({ timestamps: true })
 export class Post extends Document {
   @Prop({ required: true })
   community: string;
@@ -12,4 +13,4 @@ export class Post extends Document {
   content: string;
 }
 
-export const CreatePostSchema = SchemaFactory.createForClass(Post);
+export const PostSchema = SchemaFactory.createForClass(Post);
