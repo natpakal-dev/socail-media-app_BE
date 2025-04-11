@@ -9,13 +9,11 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb://root:example@localhost:27017/social_media?authSource=admin',
-    ),
+    ConfigModule.forRoot(), // โหลดค่า environment variables จาก .env
+    MongooseModule.forRoot(process.env.MONGO_URI!),
     PostsModule,
     AuthModule,
     UserModule,
-    ConfigModule.forRoot(), // โหลดค่า environment variables จาก .env
   ],
   controllers: [AppController],
   providers: [AppService],

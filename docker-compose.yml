@@ -1,17 +1,29 @@
 version: '3.8'
-
 services:
-  mongo:
+  mongodb:
     image: mongo
+    container_name: mongodb
     restart: always
+    ports:
+      - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-    ports:
-      - "27017:27017"
+      MONGO_INITDB_DATABASE: social_media
     volumes:
       - mongo-data:/data/db
 
+  api:
+    build: .
+    container_name: nestjs-api
+    restart: always
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: mongodb://root:example@mongodb:27017/social_media?authSource=admin
+      PORT: 5001
+
 volumes:
   mongo-data:
-    driver: local

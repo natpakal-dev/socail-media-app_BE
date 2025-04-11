@@ -18,7 +18,7 @@ export class PostsController {
     return this.postsService.create(createPostRequestDto);
   }
 
-  @Patch('/posts/:id')
+  @Patch('/post/:id')
   update(
     @Param('id') id: string,
     @Body() updatePostRequestDto: updatePostRequestDto,

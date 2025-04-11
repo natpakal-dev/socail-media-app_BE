@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
@@ -15,6 +16,9 @@ async function bootstrap() {
       forbidNonWhitelisted: true, // ถ้ามีการส่งฟิลด์ที่ไม่ได้อยู่ใน DTO จะตอบกลับ error
     }),
   );
+  console.log('MONGO_URI =', configService.get('MONGO_URI'));
+  console.log('process.env.MONGO_URI =', process.env.MONGO_URI!);
+
   await app.listen(configService.get('PORT') ?? 5001);
 }
 bootstrap();
